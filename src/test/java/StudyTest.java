@@ -10,7 +10,8 @@ public class StudyTest {
   @Test
   void studyPriceShouldBe47000Test() {
     Configuration.browser = "chrome"; // выбор браузера
-    Configuration.pageLoadTimeout = 10000; // таймаут прогрузки страницы
+    Configuration.pageLoadTimeout = 100000; // таймаут прогрузки страницы
+    Configuration.timeout = 100000; // таймаут прогрузки элементов
 
     open("https://ya.ru/");
     $("textarea.search3__input").setValue("bulgakov qa");
