@@ -1,6 +1,9 @@
 import com.codeborne.selenide.Configuration;
+import com.demoqa.pages.MainDemoQaPage;
+import com.demoqa.pages.SecondDemoQaPage;
+import com.demoqa.pages.YandexSearchPage;
+import com.demoqa.pages.YandexSearchResultsPage;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -41,27 +44,33 @@ public class StudyTest {
   // 7. Выбрать пол Male
   // 8. Ввести номер "7900111223"
   // 9. Нажать на кнопку "Submit"
-     void checkPracticeForm() {
-      Configuration.browser = "chrome"; // выбор браузера
-      Configuration.pageLoadTimeout = 10000; // таймаут прогрузки страницы
-      Configuration.timeout = 10000; // таймаут прогрузки элементов
-      Configuration.browserSize = "1920x1080";
+  void checkPracticeForm() {
+    Configuration.browser = "chrome"; // выбор браузера
+    Configuration.pageLoadTimeout = 10000; // таймаут прогрузки страницы
+    Configuration.timeout = 10000; // таймаут прогрузки элементов
+    Configuration.browserSize = "1920x1080";
 
+    YandexSearchPage yaSearchPage = new YandexSearchPage();
+    YandexSearchResultsPage yaSearchResultsPage = new YandexSearchResultsPage();
+    MainDemoQaPage mainDemoQaPage = new MainDemoQaPage();
+    SecondDemoQaPage secondDemoQaPage = new SecondDemoQaPage();
 
-      open("https://demoqa.com");
-      $(byText("Forms")).click();
-      sleep(1000);
-      $(byText("Practice Form")).click();
-      sleep(1000);
-      $("#firstName").setValue("Ivan");
-      $("#lastName").setValue("Ivanov");
-      $("#userEmail").setValue("ivanivanov@gmail.com");
-      $("#gender-radio-1").click();
-      $("#userNumber").setValue("7900111223");
-      $("#submit").click();
-      $(".table.table-dark.table-striped.table-bordered.table-hover").shouldBe(text("Ivan Ivanov"),text("ivanivanov@gmail.com"),text("7900111223"));
-      sleep(100000);
+    open("https://ya.ru");
+    yaSearchPage.search("demoqa").submit();
+    yaSearchResultsPage.selectSuitableSite("demoqa.com");
 
-
+    switchTo().window(1);
+    mainDemoQaPage.selectForms("Forms");
+    secondDemoQaPage.selectPracticeForms("Practice Form")
+            .inputFirstName("Ivan")
+            .inputLastName("Ivanov")
+            .inputEmail("ivanivanov@gmail.com")
+            .selectGender("Male")
+            .inputUserNumber("7900111223")
+            .submit()
+            .checkResult("Student Name", "Ivan Ivanov")
+            .checkResult("Student Email", "ivanivanov@gmail.com")
+            .checkResult("Gender", "Male")
+            .checkResult("Mobile", "7900111223");
   }
 }
