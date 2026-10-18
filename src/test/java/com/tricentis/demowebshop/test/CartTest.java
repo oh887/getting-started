@@ -34,6 +34,10 @@ public class CartTest {
                 .enterQuantity(2)
                 .addToCart()
                 .openCart()
-                .verifyProduct();
+                .checkProductName()
+                .checkProcessor()
+                .checkQuantity()
+                .checkUnitPrice()
+                .checkSubtotal();
     }
 }

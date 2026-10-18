@@ -4,8 +4,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
 import java.math.BigDecimal;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.codeborne.selenide.Condition.checked;
 import static com.codeborne.selenide.Condition.exactText;
@@ -17,6 +15,7 @@ public class ProductPage {
     private final SelenideElement productPrice = $("[itemprop=price]");
     private final SelenideElement processorOptions = $(".attributes dl dd");
     private final ElementsCollection processors = processorOptions.$$("input[type=radio]");
+    private final ElementsCollection processorLabels = processorOptions.$$("label");
     private final SelenideElement quantityInput = $("input.qty-input");
     private final SelenideElement addToCartButton = $("input.add-to-cart-button");
     private final SelenideElement successNotification = $("div.bar-notification.success");
@@ -24,6 +23,7 @@ public class ProductPage {
     private final SelenideElement cartLink = $("a.ico-cart");
 
     private BigDecimal expectedUnitPrice;
+    private String processorName;
     private int quantity = 1;
 
     public ProductPage selectProcessor(int index) {
@@ -35,12 +35,18 @@ public class ProductPage {
         processor.click();
         processor.shouldBe(checked);
 
-        String label = processorOptions.$("label[for='" + processor.getAttribute("id") + "']").getText();
-        Matcher surcharge = Pattern.compile("\\[\\+([\\d,.]+)\\]").matcher(label);
-        BigDecimal extraPrice = surcharge.find()
-                ? new BigDecimal(surcharge.group(1).replace(",", "")) : BigDecimal.ZERO;
-        expectedUnitPrice = new BigDecimal(productPrice.getText().replace(",", "").trim())
-                .add(extraPrice);
+        String label = processorLabels.get(index).getText();
+        expectedUnitPrice = new BigDecimal(productPrice.getText().trim());
+        processorName = label;
+
+        // У платных процессоров подпись содержит доплату, например Medium [+15.00].
+        if (label.contains("[+")) {
+            int priceStart = label.indexOf("[+");
+            int priceEnd = label.indexOf("]");
+            String extraPrice = label.substring(priceStart + 2, priceEnd);
+            expectedUnitPrice = expectedUnitPrice.add(new BigDecimal(extraPrice));
+            processorName = label.substring(0, priceStart).trim();
+        }
         return this;
     }
 
@@ -65,8 +71,7 @@ public class ProductPage {
 
     public CartPage openCart() {
         String name = productName.getText();
-        String processorLabel = processorOptions.$("input:checked + label").getText();
         cartLink.click();
-        return new CartPage(name, expectedUnitPrice, quantity, processorLabel.split("\\s")[0]);
+        return new CartPage(name, expectedUnitPrice, quantity, processorName);
     }
 }

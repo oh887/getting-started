@@ -3,7 +3,6 @@ package com.tricentis.demowebshop.pages;
 import com.codeborne.selenide.SelenideElement;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.text;
@@ -12,6 +11,11 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class CartPage {
     private final SelenideElement productRow = $(".cart-item-row");
+    private final SelenideElement productName = productRow.$("a.product-name");
+    private final SelenideElement productAttributes = productRow.$(".attributes");
+    private final SelenideElement quantityInput = productRow.$("input.qty-input");
+    private final SelenideElement unitPrice = productRow.$(".product-unit-price");
+    private final SelenideElement subtotal = productRow.$(".product-subtotal");
     private final String expectedName;
     private final BigDecimal expectedUnitPrice;
     private final int expectedQuantity;
@@ -24,17 +28,29 @@ public class CartPage {
         expectedProcessor = processor;
     }
 
-    public CartPage verifyProduct() {
-        productRow.$("a.product-name").shouldHave(exactText(expectedName));
-        productRow.$(".attributes").shouldHave(text("Processor: " + expectedProcessor));
-        productRow.$("input.qty-input").shouldHave(value(String.valueOf(expectedQuantity)));
-        productRow.$(".product-unit-price").shouldHave(exactText(formatPrice(expectedUnitPrice)));
-        productRow.$(".product-subtotal").shouldHave(exactText(
-                formatPrice(expectedUnitPrice.multiply(BigDecimal.valueOf(expectedQuantity)))));
+    public CartPage checkProductName() {
+        productName.shouldHave(exactText(expectedName));
         return this;
     }
 
-    private String formatPrice(BigDecimal price) {
-        return price.setScale(2, RoundingMode.UNNECESSARY).toPlainString();
+    public CartPage checkProcessor() {
+        productAttributes.shouldHave(text("Processor: " + expectedProcessor));
+        return this;
+    }
+
+    public CartPage checkQuantity() {
+        quantityInput.shouldHave(value(String.valueOf(expectedQuantity)));
+        return this;
+    }
+
+    public CartPage checkUnitPrice() {
+        unitPrice.shouldHave(exactText(expectedUnitPrice.toPlainString()));
+        return this;
+    }
+
+    public CartPage checkSubtotal() {
+        BigDecimal totalPrice = expectedUnitPrice.multiply(BigDecimal.valueOf(expectedQuantity));
+        subtotal.shouldHave(exactText(totalPrice.toPlainString()));
+        return this;
     }
 }
