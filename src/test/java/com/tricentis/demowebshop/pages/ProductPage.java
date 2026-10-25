@@ -1,4 +1,5 @@
 package com.tricentis.demowebshop.pages;
+import io.qameta.allure.Step;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -26,6 +27,7 @@ public class ProductPage {
     private String processorName;
     private int quantity = 1;
 
+    @Step("Выбрать процессор компьютера: индекс {index} (0 — Slow, 1 — Medium, 2 — Fast)")
     public ProductPage selectProcessor(int index) {
         // index 0 = slow, 1 = medium, 2 = fast
         if (index < 0 || index > 2) {
@@ -50,6 +52,7 @@ public class ProductPage {
         return this;
     }
 
+    @Step("Установить количество компьютеров для покупки: {quantity}")
     public ProductPage enterQuantity(int quantity) {
         if (quantity < 1) {
             throw new IllegalArgumentException("Quantity must be positive");
@@ -59,6 +62,7 @@ public class ProductPage {
         return this;
     }
 
+    @Step("Добавить настроенный компьютер в корзину и проверить уведомление и счетчик товаров")
     public ProductPage addToCart() {
         if (expectedUnitPrice == null) {
             throw new IllegalStateException("Select a processor before adding to cart");
@@ -69,6 +73,7 @@ public class ProductPage {
         return this;
     }
 
+    @Step("Открыть корзину интернет-магазина")
     public CartPage openCart() {
         String name = productName.getText();
         cartLink.click();

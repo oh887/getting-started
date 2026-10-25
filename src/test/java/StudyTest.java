@@ -4,6 +4,8 @@ import com.demoqa.pages.SecondDemoQaPage;
 import com.demoqa.pages.YandexSearchPage;
 import com.demoqa.pages.YandexSearchResultsPage;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import io.qameta.allure.*;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -12,6 +14,10 @@ import static com.codeborne.selenide.Selenide.*;
 public class StudyTest {
 
   @Test
+  @DisplayName("Стоимость обучения QA составляет 47 000 рублей")
+  @Severity(SeverityLevel.NORMAL)
+  @Owner("oh887")
+  @Link(name = "Сайт обучения QA", url = "https://ivanbulgakovqa.ru")
   void studyPriceShouldBe47000Test() {
     Configuration.browser = "chrome"; // выбор браузера
     Configuration.pageLoadTimeout = 100000; // таймаут прогрузки страницы
@@ -34,6 +40,10 @@ public class StudyTest {
   }
 
   @Test
+  @DisplayName("Регистрация студента в Practice Form с проверкой отправленных данных")
+  @Severity(SeverityLevel.NORMAL)
+  @Owner("oh887")
+  @Link(name = "Форма регистрации DemoQA", url = "https://demoqa.com/automation-practice-form")
   // Тест-кейс - проверка формы регистрации
   // 1. Открыть demoqa.com
   // 2. Нажать на кнопку "Forms"

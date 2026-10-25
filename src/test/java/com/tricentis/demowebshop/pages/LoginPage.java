@@ -1,4 +1,5 @@
 package com.tricentis.demowebshop.pages;
+import io.qameta.allure.Step;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -16,31 +17,37 @@ public class LoginPage {
     private final SelenideElement loginButton = $("input.login-button");
     private final ElementsCollection headerLinks = $$("div.header-links ul li a");
 
+    @Step("Проверить, что открыта страница входа в интернет-магазин")
     public LoginPage verifyLoginPage() {
         pageTitle.shouldHave(text("Welcome, Please Sign In!"));
         return this;
     }
 
+    @Step("Ввести email пользователя для входа: {email}")
     public LoginPage enterEmail(String email) {
         inputEmail.setValue(email);
         return this;
     }
 
+    @Step("Ввести пароль для входа: {password}")
     public LoginPage enterPassword(String password) {
         inputPassword.setValue(password);
         return this;
     }
 
+    @Step("Включить запоминание пользователя при входе")
     public LoginPage selectRememberMe() {
         rememberMeCheckbox.setSelected(true);
         return this;
     }
 
+    @Step("Отправить форму входа в интернет-магазин")
     public LoginPage pressLoginButton() {
         loginButton.click();
         return this;
     }
 
+    @Step("Проверить, что после входа в шапке магазина отображается email {email}")
     public LoginPage checkEmailIsShown(String email) {
         headerLinks.get(0).shouldHave(text(email));
         return this;

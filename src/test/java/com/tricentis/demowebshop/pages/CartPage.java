@@ -1,4 +1,5 @@
 package com.tricentis.demowebshop.pages;
+import io.qameta.allure.Step;
 
 import com.codeborne.selenide.SelenideElement;
 
@@ -28,26 +29,31 @@ public class CartPage {
         expectedProcessor = processor;
     }
 
+    @Step("Проверить название добавленного компьютера в корзине")
     public CartPage checkProductName() {
         productName.shouldHave(exactText(expectedName));
         return this;
     }
 
+    @Step("Проверить, что процессор компьютера в корзине соответствует выбранному")
     public CartPage checkProcessor() {
         productAttributes.shouldHave(text("Processor: " + expectedProcessor));
         return this;
     }
 
+    @Step("Проверить, что количество компьютеров в корзине соответствует указанному при покупке")
     public CartPage checkQuantity() {
         quantityInput.shouldHave(value(String.valueOf(expectedQuantity)));
         return this;
     }
 
+    @Step("Проверить цену одного компьютера в корзине с учетом доплаты за процессор")
     public CartPage checkUnitPrice() {
         unitPrice.shouldHave(exactText(expectedUnitPrice.toPlainString()));
         return this;
     }
 
+    @Step("Проверить, что стоимость компьютеров в корзине равна цене за единицу, умноженной на количество")
     public CartPage checkSubtotal() {
         BigDecimal totalPrice = expectedUnitPrice.multiply(BigDecimal.valueOf(expectedQuantity));
         subtotal.shouldHave(exactText(totalPrice.toPlainString()));

@@ -1,4 +1,5 @@
 package com.demoqa.pages;
+import io.qameta.allure.Step;
 
 import com.codeborne.selenide.SelenideElement;
 
@@ -9,6 +10,7 @@ public class YandexSearchResultsPage {
 
     private final SelenideElement closebutton = $(".DistributionButtonClose");
 
+        @Step("Закрыть предложение установить браузер на странице результатов поиска Яндекса")
         public YandexSearchResultsPage closeWindowsChangeBrowser () {
 
             closebutton.click();
@@ -16,6 +18,7 @@ public class YandexSearchResultsPage {
             return this;
 
         }
+        @Step("Открыть сайт {websiteName} из результатов поиска Яндекса")
         public YandexSearchResultsPage selectSuitableSite (String websiteName) {
 
             $(byText(websiteName)).click();
