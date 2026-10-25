@@ -38,7 +38,7 @@ public class LoginTest {
     }
 
     @Test
-    @DisplayName("Вход зарегистрированного пользователя с запоминанием учетной записи")
+    @DisplayName("Вход зарегистрированного пользователя")
     @Severity(SeverityLevel.CRITICAL)
     @Owner("oh887")
     @Link(name = "Страница входа Demo Web Shop", url = SHOP_URL + "/login")

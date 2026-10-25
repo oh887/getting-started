@@ -11,12 +11,12 @@ import static com.tricentis.demowebshop.config.TestConfig.SHOP_URL;
 
 @Epic("Интернет-магазин")
 @Feature("Регистрация")
-@Story("Создание учетной записи покупателя")
+@Story("Создание учетной записи пользователя")
 public class RegisterUserTest {
     private static final Faker faker = new Faker();
 
     @Test
-    @DisplayName("Успешная регистрация нового покупателя")
+    @DisplayName("Успешная регистрация нового пользователя")
     @Severity(SeverityLevel.CRITICAL)
     @Owner("oh887")
     @Link(name = "Регистрация Demo Web Shop", url = SHOP_URL + "/register")

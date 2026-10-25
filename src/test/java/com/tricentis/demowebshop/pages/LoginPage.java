@@ -41,7 +41,7 @@ public class LoginPage {
         return this;
     }
 
-    @Step("Отправить форму входа в интернет-магазин")
+    @Step("Нажать кнопку Login")
     public LoginPage pressLoginButton() {
         loginButton.click();
         return this;
