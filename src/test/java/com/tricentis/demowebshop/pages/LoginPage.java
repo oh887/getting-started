@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
     private final SelenideElement pageTitle = $("div.page-title h1");
     private final SelenideElement inputEmail = $("input#Email");

@@ -27,14 +27,14 @@ public class RegisterUserTest {
         open(SHOP_URL, WelcomePage.class)
                 .openRegistration()
                 .verifyRegistrationPage()
-                .selectMailGender()
+                .selectMaleGender()
                 .enterFirstName(faker.name().firstName())
                 .enterLastName(faker.name().lastName())
                 .enterEmail(email)
                 .enterPassword(password)
                 .confirmPassword(password)
                 .pressConfirmButton()
-                .checkRegistrationComleted()
-                .checkEmailIsSnown(email);
+                .checkRegistrationCompleted()
+                .checkEmailIsShown(email);
     }
 }

@@ -5,19 +5,10 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class WelcomePage {
+public class WelcomePage extends BasePage {
 
     private final SelenideElement registerButton = $("a.ico-register");
     private final SelenideElement loginButton = $("a.ico-login");
-    private final SelenideElement computersLink = $("ul.top-menu a[href='/computers']");
-    private final SelenideElement desktopsLink = $("ul.top-menu a[href='/desktops']");
-
-    @Step("Открыть каталог настольных компьютеров")
-    public CatalogPage openDesktops() {
-        computersLink.hover();
-        desktopsLink.click();
-        return new CatalogPage();
-    }
 
     @Step("Открыть страницу входа в интернет-магазин")
     public LoginPage openLogin() {
@@ -28,7 +19,6 @@ public class WelcomePage {
     @Step("Открыть страницу регистрации в интернет-магазине")
     public RegistrationPage openRegistration() {
         registerButton.click();
-
-    return new RegistrationPage();
+        return new RegistrationPage();
     }
 }

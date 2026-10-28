@@ -13,11 +13,9 @@ public class AuthSteps {
     @Step("Зарегистрировать нового пользователя интернет-магазина для покупки товаров")
     public void registerNewUser() {
         open(REGISTER_SHOP_URL, RegistrationPage.class)
-                .register
-                        (faker.name().firstName(),
-                                faker.name().firstName(),
-                                faker.internet().emailAddress(),
-                                faker.ghostbusters().character() + faker.number().positive());
-
+                .register(faker.name().firstName(),
+                        faker.name().lastName(),
+                        faker.internet().emailAddress(),
+                        faker.ghostbusters().character() + faker.number().positive());
     }
 }

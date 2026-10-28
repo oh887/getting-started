@@ -21,17 +21,16 @@ public class LoginTest {
     private String password;
 
     @BeforeEach
-    void beforeAll() {
+    void beforeEach() {
         password = faker.ghostbusters().character() + faker.number().positive();
         email = faker.internet().emailAddress();
 
         open(REGISTER_SHOP_URL, RegistrationPage.class)
-                .register
-                        (faker.name().firstName(),
-                                faker.name().firstName(),
-                                email,
-                                password)
-             .checkEmailIsSnown(email);
+                .register(faker.name().firstName(),
+                        faker.name().lastName(),
+                        email,
+                        password)
+                .checkEmailIsShown(email);
 
         clearBrowserCookies();
         clearBrowserLocalStorage();
