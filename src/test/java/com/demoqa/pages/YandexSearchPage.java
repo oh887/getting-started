@@ -1,4 +1,5 @@
 package com.demoqa.pages;
+import io.qameta.allure.Step;
 
 
 import com.codeborne.selenide.SelenideElement;
@@ -10,6 +11,7 @@ public class YandexSearchPage {
     private final SelenideElement searchInput = $("#text");
     private final SelenideElement submitButton = $("[type=submit]");
 
+    @Step("Ввести поисковый запрос в Яндексе: {query}")
     public YandexSearchPage search(String query) {
 
         searchInput.setValue(query);
@@ -17,6 +19,7 @@ public class YandexSearchPage {
         return this;
     }
 
+    @Step("Выполнить поиск в Яндексе")
     public YandexSearchPage submit() {
 
         submitButton.click();
