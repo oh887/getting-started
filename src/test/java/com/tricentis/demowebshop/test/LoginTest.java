@@ -15,7 +15,7 @@ import static com.tricentis.demowebshop.config.TestConfig.*;
 @Epic("Интернет-магазин")
 @Feature("Авторизация")
 @Story("Вход зарегистрированного пользователя")
-public class LoginTest {
+public class LoginTest extends TestBase {
     private static final Faker faker = new Faker();
     private String email;
     private String password;

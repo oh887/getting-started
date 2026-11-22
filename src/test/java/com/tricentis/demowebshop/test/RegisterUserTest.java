@@ -12,7 +12,7 @@ import static com.tricentis.demowebshop.config.TestConfig.SHOP_URL;
 @Epic("Интернет-магазин")
 @Feature("Регистрация")
 @Story("Создание учетной записи пользователя")
-public class RegisterUserTest {
+public class RegisterUserTest extends TestBase {
     private static final Faker faker = new Faker();
 
     @Test
