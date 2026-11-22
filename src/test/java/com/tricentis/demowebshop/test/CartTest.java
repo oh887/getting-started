@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import io.qameta.allure.*;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -30,7 +32,7 @@ public class CartTest extends TestBase {
     void beforeEach() {
         authSteps.registerNewUser();
     }
-
+    @Tags({@Tag("UI"), @Tag("positive")})
     @DisplayName("Добавление двух компьютеров в корзину с проверкой комплектации и стоимости")
     @Severity(SeverityLevel.CRITICAL)
     @Owner("Evgeniy Kitaev")
